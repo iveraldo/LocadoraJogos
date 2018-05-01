@@ -2,6 +2,9 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
+import Util.Utilitario;
+import Util.Utilitario.EnumGeneroJogo;
+import java.sql.Date;
 
 public class Jogo {
     private Long id;
@@ -10,13 +13,14 @@ public class Jogo {
     private int qtdDisponivel;
     private int qtdMaxJogadores;
     private double tamanhoGB;
-    private Genero genero;
-    private Classificacao classificacao;
+    private EnumGeneroJogo genero;
+    private Utilitario.EnumClassificacao enumClassificacao;
     private List<Idioma> audios;
     private List<Idioma> legendas;
     private Produtora produtora;
-    private double valor;
+    private double valorJogo;
     private double valorLocacao;
+    private Date dataLancamento;
     
     public Jogo(){
         audios = new ArrayList<>();
@@ -71,20 +75,20 @@ public class Jogo {
         this.tamanhoGB = tamanhoGB;
     }
 
-    public Genero getGenero() {
+    public EnumGeneroJogo getGenero() {
         return genero;
     }
 
-    public void setGenero(Genero genero) {
+    public void setGenero(EnumGeneroJogo genero) {
         this.genero = genero;
     }
 
-    public Classificacao getClassificacao() {
-        return classificacao;
+    public Utilitario.EnumClassificacao getEnumClassificacao() {
+        return enumClassificacao;
     }
 
-    public void setClassificacao(Classificacao classificacao) {
-        this.classificacao = classificacao;
+    public void setEnumClassificacao(Utilitario.EnumClassificacao enumClassificacao) {
+        this.enumClassificacao = enumClassificacao;
     }
 
     public List<Idioma> getAudios() {
@@ -119,12 +123,12 @@ public class Jogo {
         this.produtora = produtora;
     }
 
-    public double getValor() {
-        return valor;
+    public double getValorJogo() {
+        return valorJogo;
     }
 
-    public void setValor(double valor) {
-        this.valor = valor;
+    public void setValorJogo(double valor) {
+        this.valorJogo = valor;
     }
 
     public double getValorLocacao() {
@@ -133,6 +137,14 @@ public class Jogo {
 
     public void setValorLocacao(double valorLocacao) {
         this.valorLocacao = valorLocacao;
+    }
+
+    public Date getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public void setDataLancamento(Date dataLancamento) {
+        this.dataLancamento = dataLancamento;
     }
     
 }
