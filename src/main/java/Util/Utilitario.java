@@ -63,4 +63,11 @@ public class Utilitario {
         MASCULINO
         ,FEMININO
     }
+    
+    public enum EnumAcao{
+        CADASTRO
+        ,ALTERACAO
+        ,CONSULTA
+        ,EXCLUSAO
+    }
 }

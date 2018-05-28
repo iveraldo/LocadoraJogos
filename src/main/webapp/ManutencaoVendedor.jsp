@@ -1,4 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession sessao = request.getSession(false);
+    if(sessao == null)
+        request.getRequestDispatcher("login.html").forward(request, response);
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,6 +28,7 @@
                     <div class="col-md-offset-5 col-md-3">
                         <div class="form-login">
                             <h4>Jogo</h4>
+                            
                             <input type="text" id="TituloJogo" name="TituloJogo" class="form-control input-sm chat-input" placeholder="Titulo" />
                             </br>
                             <input type="text" id="QtdJogo" name="QtdJogo" class="form-control input-sm chat-input" placeholder="Quantidade" />

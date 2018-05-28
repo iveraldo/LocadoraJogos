@@ -1,5 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    if(session.getAttribute("usuarioLogado") == null) {
+        response.sendRedirect("login.html");
+    }
+%>
 <html>
     <head>
         <title>Games Mania</title>

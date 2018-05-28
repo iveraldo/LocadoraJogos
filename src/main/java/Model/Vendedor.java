@@ -8,6 +8,12 @@ public class Vendedor extends Usuario {
     private int percentualComissao;
     private Date dataAdmissao;
     private Date dataDemissao;
+    
+    public Vendedor(){};
+    
+    public Vendedor(Long id){
+        super.setId(id);
+    }
 
     public String getCpf() {
         return cpf;

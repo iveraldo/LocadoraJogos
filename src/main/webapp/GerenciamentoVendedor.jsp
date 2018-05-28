@@ -1,8 +1,14 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="Model.Vendedor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if(session.getAttribute("usuarioLogado") == null)
+        response.sendRedirect("login.html");
+%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Gerenciamento de vendedor</title>
+        <title>Gerenciamento de Vendedores</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="Recursos/geral.css">
         <link rel="stylesheet" href="webjars/bootstrap/3.3.7/css/bootstrap.css">
@@ -15,18 +21,33 @@
         <script> $(function(){ $("#nav-placeholder").load("menu.html"); }); </script>
         <!--Fim do menu-->
         
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 celula">Nome</div>
-                <div class="col-md-3 celula">Login</div>
-            </div>
-            <div class="row">
-                <div class="col-md-3 celula">Nuno</div>
-                <div class="col-md-3 celula">Guilherme</div>
-            </div>
-            <div class="row">
-                <div class="col-md-3 celula">nunoleao</div>
-                <div class="col-md-3 celula">guilhermenascimento</div>
+        <h4 class="page-head-line">Gerenciamento de Vendedores</h4>
+            <h4>
+                <a class="label label-info" style="text-decoration:none" href="ManutencaoVendedor.jsp">Incluir</a>
+            </h4>
+        <div class="col-md-12">			
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Login</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="vendedor" items="${vendedores}">
+                            <tr>
+                                <td>${vendedor.nome}</td>
+                                <td>${vendedor.login}</td>
+                                <td>
+                                    <a class="label label-success" href="ManutencaoVendedor.jsp"> Alterar</a>
+                                    <a class="label label-danger" href="#">Excluir</a>
+                                </td>
+                            </tr>    
+                        </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
     </body>
