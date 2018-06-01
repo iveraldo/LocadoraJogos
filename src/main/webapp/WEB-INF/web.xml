@@ -5,10 +5,6 @@
         <servlet-class>org.webjars.servlet.WebjarsServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
-    <servlet>
-        <servlet-name>ConfigurarEstadoConhecidoBanco</servlet-name>
-        <servlet-class>Control.ConfigurarEstadoConhecidoBanco</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>WebjarsServlet</servlet-name>
         <url-pattern>/webjars/*</url-pattern>

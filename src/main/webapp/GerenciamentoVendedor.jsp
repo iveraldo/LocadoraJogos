@@ -1,9 +1,15 @@
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="DAO.VendedorDAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Model.Vendedor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     if(session.getAttribute("usuarioLogado") == null)
         response.sendRedirect("login.html");
+    
+    Object vendedores = new VendedorDAO().consultar(new Vendedor()); 
+    request.setAttribute("vendedores", new VendedorDAO().consultar(new Vendedor()));
 %>
 <!DOCTYPE html>
 <html>
@@ -31,7 +37,7 @@
                     <thead>
                         <tr>
                             <th>Nome</th>
-                            <th>Login</th>
+                            <th>CPF</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -39,9 +45,9 @@
                         <c:forEach var="vendedor" items="${vendedores}">
                             <tr>
                                 <td>${vendedor.nome}</td>
-                                <td>${vendedor.login}</td>
+                                <td>${vendedor.cpf}</td>
                                 <td>
-                                    <a class="label label-success" href="ManutencaoVendedor.jsp"> Alterar</a>
+                                    <a class="label label-success" href="ManutencaoVendedor.jsp?v=${vendedor.id}"> Alterar</a>
                                     <a class="label label-danger" href="#">Excluir</a>
                                 </td>
                             </tr>    
