@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +18,13 @@ public class VendedorDAO {
         if(pVendedor.getId() == null){
             comando = "INSERT INTO Usuario (nome, login, senha) VALUES(?, ?, ?);";
             
-            PreparedStatement stmt = conexao.prepareStatement(comando);
+            PreparedStatement stmt = conexao.prepareStatement(comando, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, pVendedor.getNome());
             stmt.setString(2, pVendedor.getLogin());
             stmt.setString(3, pVendedor.getSenha());
             
             //insere na tabela usuario
-            stmt.execute(comando);
+            stmt.executeUpdate();
             
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -38,16 +39,16 @@ public class VendedorDAO {
             stmt.setDouble(3, pVendedor.getSalario());
             
             //insere na tabela vendedor
-            stmt.executeUpdate(comando);
+            stmt.executeUpdate();
             
             conexao.close();
             
         } else {
             comando = "UPDATE Usuario" +
-                    "INNER JOIN Vendedor ON usuario.id = Vendedor.id_usuario" +
-                    "SET Usuario.nome = ?, Usuario.login = ?, " +
-                    "Usuario.senha = ?, Vendedor.cpf = ?, Vendedor.salario = ?" +
-                    "WHERE Usuario.id = ?";
+                    " INNER JOIN Vendedor ON usuario.id = Vendedor.id_usuario" +
+                    " SET Usuario.nome = ?, Usuario.login = ?, " +
+                    " Usuario.senha = ?, Vendedor.cpf = ?, Vendedor.salario = ?" +
+                    " WHERE Usuario.id = ?";
             
             PreparedStatement stmt = conexao.prepareStatement(comando);
             stmt = conexao.prepareStatement(comando);
@@ -81,6 +82,7 @@ public class VendedorDAO {
         }
                  
         ResultSet rs = stmt.executeQuery();
+        
         while(rs.next()) {
             vendedores.add(montarObjeto(rs));
         }
@@ -91,8 +93,23 @@ public class VendedorDAO {
         return vendedores;
     }
 
-    public static void excluir() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static void excluir(Vendedor pVendedor) throws SQLException, ClassNotFoundException {
+        String comando;
+        Connection conexao = FabricaConexao.getConnection();
+        
+        comando = "DELETE FROM Vendedor WHERE id_usuario = ?";
+        PreparedStatement stmt = conexao.prepareStatement(comando);
+        stmt.setLong(1, pVendedor.getId());
+        
+        //Exclui da tabela Vendedor
+        stmt.executeUpdate();
+        
+        comando = "DELETE FROM Usuario WHERE id = ?";
+        stmt = conexao.prepareStatement(comando);
+        stmt.setLong(1, pVendedor.getId());
+        
+        //Exclui da tabela Usuario
+        stmt.executeUpdate();
     }
     
     public static Vendedor validarLogin(Vendedor vendedor) throws SQLException, ClassNotFoundException{

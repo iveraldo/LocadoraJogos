@@ -48,7 +48,7 @@
                                 <td>${vendedor.cpf}</td>
                                 <td>
                                     <a class="label label-success" href="ManutencaoVendedor.jsp?v=${vendedor.id}"> Alterar</a>
-                                    <a class="label label-danger" href="#">Excluir</a>
+                                    <a class="label label-danger" href="excluirVendedor?i=${vendedor.id}">Excluir</a>
                                 </td>
                             </tr>    
                         </c:forEach>
