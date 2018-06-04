@@ -14,6 +14,12 @@ public class Cliente {
     private String email;
     private EnumSexo sexo;
     private Date dataCadastro;
+    
+    public Cliente() {};
+    
+    public Cliente(Long id){
+        this.setId(id);
+    }
 
     public Long getId() {
         return id;

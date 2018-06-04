@@ -13,15 +13,18 @@ import java.util.List;
 public class VendedorDAO {
 
     public static void salvar(Vendedor pVendedor) throws SQLException, ClassNotFoundException {
+        int contadorParametros = 1;
         String comando;
         Connection conexao = FabricaConexao.getConnection();
+        
         if(pVendedor.getId() == null){
-            comando = "INSERT INTO Usuario (nome, login, senha) VALUES(?, ?, ?);";
+            comando = "INSERT INTO Usuario (nome, login, senha, ativo) VALUES(?, ?, ?, ?);";
             
             PreparedStatement stmt = conexao.prepareStatement(comando, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, pVendedor.getNome());
-            stmt.setString(2, pVendedor.getLogin());
-            stmt.setString(3, pVendedor.getSenha());
+            stmt.setString(contadorParametros++, pVendedor.getNome());
+            stmt.setString(contadorParametros++, pVendedor.getLogin());
+            stmt.setString(contadorParametros++, pVendedor.getSenha());
+            stmt.setBoolean(contadorParametros++, pVendedor.getIsAtivo());
             
             //insere na tabela usuario
             stmt.executeUpdate();
@@ -32,11 +35,17 @@ public class VendedorDAO {
             
             pVendedor.setId(rs.getLong(1));
                         
-            comando = "INSERT INTO Vendedor (id_usuario, cpf, salario) VALUES (?, ?, ?);";
+            //zera o contador de parametros
+            contadorParametros = 1;
+            
+            comando = "INSERT INTO Vendedor (id_usuario, cpf, salario, percentual_comissao, data_admissao) "
+                    + "VALUES (?, ?, ?, ?, ?);";
             stmt = conexao.prepareStatement(comando);
-            stmt.setLong(1, pVendedor.getId());
-            stmt.setString(2, pVendedor.getCpf());
-            stmt.setDouble(3, pVendedor.getSalario());
+            stmt.setLong(contadorParametros++, pVendedor.getId());
+            stmt.setString(contadorParametros++, pVendedor.getCpf());
+            stmt.setDouble(contadorParametros++, pVendedor.getSalario());
+            stmt.setInt(contadorParametros++, pVendedor.getPercentualComissao());
+            stmt.setDate(contadorParametros++, pVendedor.getDataAdmissao());
             
             //insere na tabela vendedor
             stmt.executeUpdate();
@@ -44,20 +53,31 @@ public class VendedorDAO {
             conexao.close();
             
         } else {
-            comando = "UPDATE Usuario" +
-                    " INNER JOIN Vendedor ON usuario.id = Vendedor.id_usuario" +
-                    " SET Usuario.nome = ?, Usuario.login = ?, " +
-                    " Usuario.senha = ?, Vendedor.cpf = ?, Vendedor.salario = ?" +
-                    " WHERE Usuario.id = ?";
+            comando = "UPDATE Usuario"
+                    + " INNER JOIN Vendedor ON usuario.id = Vendedor.id_usuario SET"
+                    + " Usuario.nome = ?"
+                    + ", Usuario.login = ?"
+                    + ", Usuario.senha = ?"
+                    + ", Usuario.ativo = ?"
+                    + ", Vendedor.cpf = ?"
+                    + ", Vendedor.salario = ?"
+                    + ", Vendedor.percentual_comissao = ?"
+                    + ", Vendedor.data_admissao = ?"
+                    + ", Vendedor.data_demissao = ?"
+                    + " WHERE Usuario.id = ?";
             
             PreparedStatement stmt = conexao.prepareStatement(comando);
             stmt = conexao.prepareStatement(comando);
-            stmt.setString(1, pVendedor.getNome());
-            stmt.setString(2, pVendedor.getLogin());
-            stmt.setString(3, pVendedor.getSenha());
-            stmt.setString(4, pVendedor.getCpf());
-            stmt.setDouble(5, pVendedor.getSalario());
-            stmt.setLong(6, pVendedor.getId());
+            stmt.setString(contadorParametros++, pVendedor.getNome());
+            stmt.setString(contadorParametros++, pVendedor.getLogin());
+            stmt.setString(contadorParametros++, pVendedor.getSenha());
+            stmt.setBoolean(contadorParametros++, pVendedor.getIsAtivo());
+            stmt.setString(contadorParametros++, pVendedor.getCpf());
+            stmt.setDouble(contadorParametros++, pVendedor.getSalario());
+            stmt.setInt(contadorParametros++, pVendedor.getPercentualComissao());
+            stmt.setDate(contadorParametros++, pVendedor.getDataAdmissao());
+            stmt.setDate(contadorParametros++, pVendedor.getDataDemissao());
+            stmt.setLong(contadorParametros++, pVendedor.getId());
             
             stmt.executeUpdate();
             
@@ -66,19 +86,41 @@ public class VendedorDAO {
     }
 
     public static List<Vendedor> consultar(Vendedor pVendedor) throws SQLException, ClassNotFoundException{
-        List<Vendedor> vendedores = new ArrayList<Vendedor>();
+        int contadorParametros = 1;
+        List<Vendedor> vendedores = new ArrayList<>();
         Connection conexao = FabricaConexao.getConnection();
-        PreparedStatement stmt;
+        PreparedStatement stmt = null;
         
-        String comando = "select usuario.id, usuario.nome, usuario.login, usuario.senha, vendedor.cpf, vendedor.salario"
-                + " from usuario inner join vendedor on usuario.id = vendedor.id_usuario";
+        String comando = "SELECT Usuario.id, Usuario.nome, Usuario.login, Usuario.senha, Usuario.ativo"
+                + ", Vendedor.cpf, Vendedor.salario, Vendedor.percentual_comissao"
+                + ", Vendedor.data_admissao, Vendedor.data_demissao "
+                + "FROM Usuario INNER JOIN Vendedor ON Usuario.id = Vendedor.id_usuario "
+                + "WHERE 1 = 1 ";
         
         if(pVendedor.getId() != null){
-            comando += " where usuario.id = ?";
-            stmt = conexao.prepareStatement(comando);
-            stmt.setLong(1, pVendedor.getId());
-        } else {
-            stmt = conexao.prepareStatement(comando);
+            comando += "AND Usuario.id = ? ";
+        }
+            
+        if(pVendedor.getLogin() != null){
+            comando += "AND Usuario.login = ? ";
+        }
+        
+        if(pVendedor.getSenha() != null){
+            comando += "AND Usuario.senha = ? AND Usuario.ativo = 1";
+        }
+        
+        stmt = conexao.prepareStatement(comando);
+        
+        if(pVendedor.getId() != null){
+            stmt.setLong(contadorParametros++, pVendedor.getId());
+        }
+            
+        if(pVendedor.getLogin() != null){
+            stmt.setString(contadorParametros++, pVendedor.getLogin());
+        }
+        
+        if(pVendedor.getSenha() != null){
+            stmt.setString(contadorParametros++, pVendedor.getSenha());
         }
                  
         ResultSet rs = stmt.executeQuery();
@@ -112,39 +154,18 @@ public class VendedorDAO {
         stmt.executeUpdate();
     }
     
-    public static Vendedor validarLogin(Vendedor vendedor) throws SQLException, ClassNotFoundException{
-        Connection conexao = FabricaConexao.getConnection();
-        String comando = "select usuario.id, usuario.nome, usuario.login, usuario.senha, vendedor.cpf, vendedor.salario"
-                + " from usuario inner join vendedor on usuario.id = vendedor.id_usuario"
-                + " where login = ? and senha = ?";
-        
-        PreparedStatement stmt = conexao.prepareStatement(comando);
-        stmt.setString(1, vendedor.getLogin());
-        stmt.setString(2, vendedor.getSenha());
-
-        ResultSet rs = stmt.executeQuery();
-        
-        //Se encontrar o vendedor, retorna ele. Caso contrario, retorna null
-        if(rs.next()){
-            vendedor = montarObjeto(rs);
-        } else {
-            vendedor = null;
-        }
-        
-        //fecha a conexao
-        conexao.close();
-        
-        return vendedor;
-    }
-    
     private static Vendedor montarObjeto(ResultSet rs) throws SQLException{
             Vendedor vendedor = new Vendedor();
             vendedor.setId(rs.getLong("id"));
             vendedor.setNome(rs.getString("nome"));
             vendedor.setLogin(rs.getString("login"));
             vendedor.setSenha(rs.getString("senha"));
+            vendedor.setIsAtivo(rs.getBoolean("ativo"));
             vendedor.setCpf(rs.getString("cpf"));
             vendedor.setSalario(rs.getDouble("salario"));
+            vendedor.setPercentualComissao(rs.getInt("percentual_comissao"));
+            vendedor.setDataAdmissao(rs.getDate("data_admissao"));
+            vendedor.setDataDemissao(rs.getDate("data_demissao"));
             return vendedor;
     }
     

@@ -3,7 +3,7 @@ package Model;
 import Util.Utilitario.EnumEstado;
 import java.sql.Date;
 
-class Endereco {
+public class Endereco {
     private Long id;
     private String logradouro;
     private int numero;

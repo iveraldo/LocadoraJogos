@@ -2,7 +2,7 @@ package Model;
 
 import java.sql.Date;
 
-class Produtora {
+public class Produtora {
     private Long id;
     private String nome;
     private Date dataFundacao;
@@ -13,6 +13,12 @@ class Produtora {
     private String cidadeSede;
     private String paisOrigem;
     private int qtdEstudios;
+    
+    public Produtora(){};
+    
+    public Produtora(Long id){
+        this.setId(id);
+    }
 
     public Long getId() {
         return id;

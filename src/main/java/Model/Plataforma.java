@@ -7,12 +7,18 @@ public class Plataforma {
     private String descricao;
     private Date dataCriacao;
     private String fabricante;
-    private int unidadesVendidas;
+    private long unidadesVendidas;
     private int numeroGeracao;
     private String midia;
-    private String site_oficial;
+    private String siteOficial;
     private double precoLancamento;
     private String sistemaOperacional;
+    
+    public Plataforma(){};
+    
+    public Plataforma(Long id){
+        this.setId(id);
+    }
 
     public Long getId() {
         return id;
@@ -46,11 +52,11 @@ public class Plataforma {
         this.fabricante = fabricante;
     }
 
-    public int getUnidadesVendidas() {
+    public long getUnidadesVendidas() {
         return unidadesVendidas;
     }
 
-    public void setUnidadesVendidas(int unidadesVendidas) {
+    public void setUnidadesVendidas(long unidadesVendidas) {
         this.unidadesVendidas = unidadesVendidas;
     }
 
@@ -70,12 +76,12 @@ public class Plataforma {
         this.midia = midia;
     }
 
-    public String getSite_oficial() {
-        return site_oficial;
+    public String getSiteOficial() {
+        return siteOficial;
     }
 
-    public void setSite_oficial(String site_oficial) {
-        this.site_oficial = site_oficial;
+    public void setSiteOficial(String siteOficial) {
+        this.siteOficial = siteOficial;
     }
 
     public double getPrecoLancamento() {

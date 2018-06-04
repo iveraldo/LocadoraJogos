@@ -1,20 +1,20 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="DAO.VendedorDAO"%>
+<%@page import="DAO.PlataformaDAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="Model.Vendedor"%>
+<%@page import="Model.Plataforma"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     if(session.getAttribute("usuarioLogado") == null)
         response.sendRedirect("login.html");
     
-    Object vendedores = new VendedorDAO().consultar(new Vendedor()); 
-    request.setAttribute("vendedores", new VendedorDAO().consultar(new Vendedor()));
+    Object plataformas = new PlataformaDAO().consultar(new Plataforma()); 
+    request.setAttribute("plataformas", new PlataformaDAO().consultar(new Plataforma()));
 %>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Gerenciamento de Vendedores</title>
+        <title>Gerenciamento de Plataformas</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="Recursos/geral.css">
         <link rel="stylesheet" href="webjars/bootstrap/3.3.7/css/bootstrap.css">
@@ -27,9 +27,9 @@
         <script> $(function(){ $("#nav-placeholder").load("menu.html"); }); </script>
         <!--Fim do menu-->
         
-        <h4 class="page-head-line">Gerenciamento de Vendedores</h4>
+        <h4 class="page-head-line">Gerenciamento de Plataformas</h4>
             <h4>
-                <a href="ManutencaoVendedor.jsp"><button type="button" class="btn btn-info">Incluir</button></a>
+                <a href="ManutencaoPlataforma.jsp"><button type="button" class="btn btn-info">Incluir</button></a>
             </h4>
         <div class="col-md-12">			
             <div class="table-responsive">
@@ -37,18 +37,18 @@
                     <thead>
                         <tr>
                             <th>Nome</th>
-                            <th>CPF</th>
+                            <th>Fabricante</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="vendedor" items="${vendedores}">
+                        <c:forEach var="plataforma" items="${plataformas}">
                             <tr>
-                                <td>${vendedor.nome}</td>
-                                <td>${vendedor.cpf}</td>
+                                <td>${plataforma.descricao}</td>
+                                <td>${plataforma.fabricante}</td>
                                 <td>
-                                    <a class="label label-success" href="ManutencaoVendedor.jsp?v=${vendedor.id}"> Alterar</a>
-                                    <a class="label label-danger" href="excluirVendedor?i=${vendedor.id}">Excluir</a>
+                                    <a class="label label-success" href="ManutencaoPlataforma.jsp?v=${plataforma.id}"> Alterar</a>
+                                    <a class="label label-danger" href="excluirPlataforma?i=${plataforma.id}">Excluir</a>
                                 </td>
                             </tr>    
                         </c:forEach>

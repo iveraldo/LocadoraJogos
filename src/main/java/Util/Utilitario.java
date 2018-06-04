@@ -3,23 +3,23 @@ package Util;
 public class Utilitario {
     
     public enum EnumGeneroJogo {
-        ACAO
-        ,AVENTURA
-        ,ESTRATEGIA
-        ,RPG
-        ,ESPORTE
-        ,CORRIDA
-        ,SIMULACAO
-        ,PLATAFORMA
-        ,TERROR
+        Acao
+        ,Aventura
+        ,Estrategia
+        ,Rpg
+        ,Esporte
+        ,Corrida
+        ,Simulacao
+        ,Plataforma
+        ,Terror
     }
     
     public enum EnumClassificacao{
-        LIVRE
-        ,DOZE
-        ,CATORZE
-        ,DEZESSEIS
-        ,DEZOITO
+        Livre
+        ,Doze
+        ,Catorze
+        ,Dezesseis
+        ,Dezoito
     }
     
     public enum EnumEstado{
@@ -53,21 +53,21 @@ public class Utilitario {
     }
     
     public enum EnumFormaPagamento{
-        DINHEIRO
-        ,CARTAO_CREDITO
-        ,CARTAO_DEBITO
-        ,CHEQUE
+        Dinheiro
+        ,CartaoCredito
+        ,CartaoDebito
+        ,Cheque
     }
     
     public enum EnumSexo{
-        MASCULINO
-        ,FEMININO
+        Masculino
+        ,Feminino
     }
     
     public enum EnumAcao{
-        CADASTRO
-        ,ALTERACAO
-        ,CONSULTA
-        ,EXCLUSAO
+        Cadastro
+        ,Alteracao
+        ,Consulta
+        ,Exclusao
     }
 }
