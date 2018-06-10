@@ -2,7 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
-import Util.Utilitario;
+import Util.Utilitario.EnumClassificacao;
 import Util.Utilitario.EnumGeneroJogo;
 import java.sql.Date;
 
@@ -14,7 +14,7 @@ public class Jogo {
     private int qtdMaxJogadores;
     private double tamanhoGB;
     private EnumGeneroJogo genero;
-    private Utilitario.EnumClassificacao enumClassificacao;
+    private EnumClassificacao classificacao;
     private List<Idioma> audios;
     private List<Idioma> legendas;
     private Produtora produtora;
@@ -25,6 +25,11 @@ public class Jogo {
     public Jogo(){
         audios = new ArrayList<>();
         legendas = new ArrayList<>();
+    }
+    
+    public Jogo(Long id){
+        this();
+        this.id = id;
     }
 
     public Long getId() {
@@ -83,36 +88,72 @@ public class Jogo {
         this.genero = genero;
     }
 
-    public Utilitario.EnumClassificacao getEnumClassificacao() {
-        return enumClassificacao;
+    public EnumClassificacao getClassificacao() {
+        return classificacao;
     }
 
-    public void setEnumClassificacao(Utilitario.EnumClassificacao enumClassificacao) {
-        this.enumClassificacao = enumClassificacao;
+    public void setClassificacao(EnumClassificacao classificacao) {
+        this.classificacao = classificacao;
     }
 
     public List<Idioma> getAudios() {
         return audios;
+    }
+    
+    public List<Long> getIdAudios(){
+        List<Long> idsAudios = new ArrayList<>();
+        
+        for(Idioma audio: audios){
+            idsAudios.add(audio.getId());
+        }
+        
+        return idsAudios;
     }
 
     public void adicionarAudio(Idioma audio) {
         this.audios.add(audio);
     }
     
+    public void setAudio(List<Idioma> audios) {
+        this.audios = audios;
+    }
+    
     public void removerAudio(Idioma audio){
         this.audios.remove(audio);
+    }
+    
+    public void limparAudios(){
+        this.audios.removeAll(audios);
     }
 
     public List<Idioma> getLegendas() {
         return legendas;
+    }
+    
+    public List<Long> getIdLegendas(){
+        List<Long> idsLegendas = new ArrayList<>();
+        
+        for(Idioma legenda: legendas){
+            idsLegendas.add(legenda.getId());
+        }
+        
+        return idsLegendas;
     }
 
     public void adicionarLegenda(Idioma legenda) {
         this.legendas.add(legenda);
     }
     
+    public void setLegenda(List<Idioma> legendas) {
+        this.legendas = legendas;
+    }
+    
     public void removerLegenda(Idioma legenda){
         this.legendas.remove(legenda);
+    }
+    
+    public void limparLegendas(){
+        this.legendas.removeAll(legendas);
     }
 
     public Produtora getProdutora() {

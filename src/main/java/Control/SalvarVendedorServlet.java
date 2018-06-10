@@ -3,6 +3,7 @@ package Control;
 import DAO.VendedorDAO;
 import Model.Vendedor;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.text.DateFormat;
@@ -54,7 +55,7 @@ public class SalvarVendedorServlet extends HttpServlet {
         
             VendedorDAO.salvar(vendedor);
             resp.sendRedirect("GerenciamentoVendedor.jsp");
-        } catch(ClassNotFoundException | NumberFormatException | SQLException ex){
+        } catch(ClassNotFoundException | NumberFormatException | SQLException | NoSuchAlgorithmException ex){
             System.out.print(ex);
             resp.sendRedirect("falha.html");
         } catch (ParseException ex) {

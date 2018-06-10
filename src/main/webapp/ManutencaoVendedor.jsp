@@ -101,12 +101,12 @@
 
                 <div class="form-group">
                     <label for="senha">Senha</label>       
-                    <input type="password" name="senha" value="${vendedor.senha}" class="form-control" />
+                    <input type="password" name="senha" class="form-control" />
                 </div>
 
                  <div class="form-group">
                     <label for="confirmacaoSenha">Confirmar Senha</label>                                    
-                    <input type="password" name="confirmacaoSenha" value="${vendedor.senha}" class="form-control" />
+                    <input type="password" name="confirmacaoSenha" class="form-control" />
                 </div>                                
 
                  <br>

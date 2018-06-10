@@ -1,7 +1,9 @@
 package DAO;
 
 import Model.Idioma;
+import Model.Jogo;
 import Util.FabricaConexao;
+import Util.Utilitario.EnumTipoIdioma;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -88,6 +90,34 @@ public class IdiomaDAO {
         if(pIdioma.getId() != null){
             stmt.setLong(contadorParametros++, pIdioma.getId());
         }
+                 
+        ResultSet rs = stmt.executeQuery();
+        
+        while(rs.next()) {
+            idiomas.add(montarObjeto(rs));
+        }
+        
+        //fecha a conexao
+        conexao.close();
+        
+        return idiomas;
+    }
+    
+    public static List<Idioma> consultarAudiosLegendas(Jogo pJogo, EnumTipoIdioma pTipoIdioma) throws SQLException, ClassNotFoundException{
+        List<Idioma> idiomas = new ArrayList<>();
+        Connection conexao = FabricaConexao.getConnection();
+        PreparedStatement stmt = null;
+        
+        String comando = "SELECT Idioma.id, nome, nome_original, qtd_aprox_falantes_nativos, "
+                    + "qtd_aprox_falantes_estrangeiros, familia_linguistica, alfabeto, "
+                    + "qtd_paises_lingua_oficial, pais_origem, data_origem "
+                    + "FROM Idioma INNER JOIN " + pTipoIdioma.toString() + " ON Idioma.id = " + pTipoIdioma.toString() + ".id_idioma "
+                    + "WHERE id_jogo = ?";
+        
+        
+        stmt = conexao.prepareStatement(comando);
+
+        stmt.setLong(1, pJogo.getId());
                  
         ResultSet rs = stmt.executeQuery();
         

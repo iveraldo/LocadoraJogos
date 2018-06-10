@@ -2,6 +2,9 @@ package DAO;
 
 import Model.Vendedor;
 import Util.FabricaConexao;
+import Util.Utilitario;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +15,7 @@ import java.util.List;
 
 public class VendedorDAO {
 
-    public static void salvar(Vendedor pVendedor) throws SQLException, ClassNotFoundException {
+    public static void salvar(Vendedor pVendedor) throws SQLException, ClassNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException {
         int contadorParametros = 1;
         String comando;
         Connection conexao = FabricaConexao.getConnection();
@@ -23,7 +26,7 @@ public class VendedorDAO {
             PreparedStatement stmt = conexao.prepareStatement(comando, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(contadorParametros++, pVendedor.getNome());
             stmt.setString(contadorParametros++, pVendedor.getLogin());
-            stmt.setString(contadorParametros++, pVendedor.getSenha());
+            stmt.setString(contadorParametros++, Utilitario.gerarHash(pVendedor.getSenha()));
             stmt.setBoolean(contadorParametros++, pVendedor.getIsAtivo());
             
             //insere na tabela usuario
@@ -57,26 +60,34 @@ public class VendedorDAO {
                     + " INNER JOIN Vendedor ON usuario.id = Vendedor.id_usuario SET"
                     + " Usuario.nome = ?"
                     + ", Usuario.login = ?"
-                    + ", Usuario.senha = ?"
                     + ", Usuario.ativo = ?"
                     + ", Vendedor.cpf = ?"
                     + ", Vendedor.salario = ?"
                     + ", Vendedor.percentual_comissao = ?"
                     + ", Vendedor.data_admissao = ?"
-                    + ", Vendedor.data_demissao = ?"
-                    + " WHERE Usuario.id = ?";
+                    + ", Vendedor.data_demissao = ?";
+            
+            if(!pVendedor.getSenha().equals("")){
+                comando += ", Usuario.senha = ?";
+            }
+            
+            comando+= " WHERE Usuario.id = ?";
             
             PreparedStatement stmt = conexao.prepareStatement(comando);
             stmt = conexao.prepareStatement(comando);
             stmt.setString(contadorParametros++, pVendedor.getNome());
             stmt.setString(contadorParametros++, pVendedor.getLogin());
-            stmt.setString(contadorParametros++, pVendedor.getSenha());
             stmt.setBoolean(contadorParametros++, pVendedor.getIsAtivo());
             stmt.setString(contadorParametros++, pVendedor.getCpf());
             stmt.setDouble(contadorParametros++, pVendedor.getSalario());
             stmt.setInt(contadorParametros++, pVendedor.getPercentualComissao());
             stmt.setDate(contadorParametros++, pVendedor.getDataAdmissao());
             stmt.setDate(contadorParametros++, pVendedor.getDataDemissao());
+            
+            if(!pVendedor.getSenha().equals("")){
+                stmt.setString(contadorParametros++, Utilitario.gerarHash(pVendedor.getSenha()));
+            }
+            
             stmt.setLong(contadorParametros++, pVendedor.getId());
             
             stmt.executeUpdate();
@@ -85,7 +96,7 @@ public class VendedorDAO {
         }
     }
 
-    public static List<Vendedor> consultar(Vendedor pVendedor) throws SQLException, ClassNotFoundException{
+    public static List<Vendedor> consultar(Vendedor pVendedor) throws SQLException, ClassNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException{
         int contadorParametros = 1;
         List<Vendedor> vendedores = new ArrayList<>();
         Connection conexao = FabricaConexao.getConnection();
@@ -120,7 +131,7 @@ public class VendedorDAO {
         }
         
         if(pVendedor.getSenha() != null){
-            stmt.setString(contadorParametros++, pVendedor.getSenha());
+            stmt.setString(contadorParametros++, Utilitario.gerarHash(pVendedor.getSenha()));
         }
                  
         ResultSet rs = stmt.executeQuery();

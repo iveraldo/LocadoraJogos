@@ -3,7 +3,7 @@ create table Usuario(
     id integer primary key auto_increment
     ,nome varchar(60) not null
     ,login varchar(60) not null 
-    ,senha varchar(60) not null
+    ,senha varchar(250) not null
     ,ativo tinyint not null
 );
 
@@ -85,4 +85,36 @@ create table Endereco(
     ,obs varchar(200) not null
     ,id_cliente integer not null
     ,foreign key (id_cliente) references Cliente(id)
+);
+
+create table Jogo(
+	id integer primary key auto_increment
+    ,titulo varchar(100) not null
+    ,qtd integer not null
+    ,qtd_disponivel integer not null
+    ,qtd_max_jogadores integer not null
+    ,tamanho_GB  decimal(8, 2) not null
+    ,genero varchar(20) not null
+    ,classificao varchar(15) not null
+    ,id_produtora int not null
+    ,valor_jogo decimal(13, 2)not null
+    ,valor_locacao decimal(13, 2) not null
+    ,data_lancamento date not null
+    ,foreign key (id_produtora) references Produtora(id)
+);
+
+create table Jogo_Audio(
+	id integer primary key auto_increment
+    ,id_jogo int not null
+    ,id_idioma int not null
+    ,foreign key (id_jogo) references Jogo(id)
+    ,foreign key (id_idioma) references Idioma(id)
+);
+
+create table Jogo_Legenda(
+	id integer primary key auto_increment
+    ,id_jogo int not null
+    ,id_idioma int not null
+    ,foreign key (id_jogo) references Jogo(id)
+    ,foreign key (id_idioma) references Idioma(id)
 );

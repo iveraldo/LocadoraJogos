@@ -3,6 +3,7 @@ package Control;
 import DAO.VendedorDAO;
 import Model.Vendedor;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
@@ -33,7 +34,7 @@ public class LoginServlet extends HttpServlet {
             } else{
                 resp.sendRedirect("falhaAutenticacao.html");
             }
-        } catch(IOException | ClassNotFoundException | SQLException ex) {
+        } catch(IOException | ClassNotFoundException | SQLException | NoSuchAlgorithmException ex) {
             System.out.print("Erro: " + ex);
             resp.sendRedirect("falha.html");
         }
