@@ -78,14 +78,7 @@
                     <label for="genero">Genero</label>
                     <select name="genero" class="form-control">
                         <c:forEach var="genero" items="${generos}">
-                            <c:choose>
-                                <c:when test="${jogo.genero.equals(genero)}">
-                                    <option value="${genero}" selected>${genero}</option>
-                                </c:when>
-                                <c:otherwise>
-                                    <option value="${genero}">${genero}</option>
-                                </c:otherwise>
-                            </c:choose> 
+                            <option value="${genero}">${genero}</option>
                         </c:forEach>
                     </select>
                 </div>  

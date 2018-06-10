@@ -27,7 +27,7 @@ public class VendedorDAO {
             stmt.setString(contadorParametros++, pVendedor.getNome());
             stmt.setString(contadorParametros++, pVendedor.getLogin());
             stmt.setString(contadorParametros++, Utilitario.gerarHash(pVendedor.getSenha()));
-            stmt.setBoolean(contadorParametros++, pVendedor.getIsAtivo());
+            stmt.setBoolean(contadorParametros++, pVendedor.isAtivo());
             
             //insere na tabela usuario
             stmt.executeUpdate();
@@ -77,7 +77,7 @@ public class VendedorDAO {
             stmt = conexao.prepareStatement(comando);
             stmt.setString(contadorParametros++, pVendedor.getNome());
             stmt.setString(contadorParametros++, pVendedor.getLogin());
-            stmt.setBoolean(contadorParametros++, pVendedor.getIsAtivo());
+            stmt.setBoolean(contadorParametros++, pVendedor.isAtivo());
             stmt.setString(contadorParametros++, pVendedor.getCpf());
             stmt.setDouble(contadorParametros++, pVendedor.getSalario());
             stmt.setInt(contadorParametros++, pVendedor.getPercentualComissao());
@@ -171,7 +171,7 @@ public class VendedorDAO {
             vendedor.setNome(rs.getString("nome"));
             vendedor.setLogin(rs.getString("login"));
             vendedor.setSenha(rs.getString("senha"));
-            vendedor.setIsAtivo(rs.getBoolean("ativo"));
+            vendedor.setAtivo(rs.getBoolean("ativo"));
             vendedor.setCpf(rs.getString("cpf"));
             vendedor.setSalario(rs.getDouble("salario"));
             vendedor.setPercentualComissao(rs.getInt("percentual_comissao"));

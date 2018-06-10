@@ -2,6 +2,7 @@ package DAO;
 
 import Model.Jogo;
 import Model.Idioma;
+import Model.PedidoLocacao;
 import Model.Produtora;
 import Util.FabricaConexao;
 import Util.Utilitario;
@@ -140,6 +141,33 @@ public class JogoDAO {
         if(pJogo.getId() != null){
             stmt.setLong(contadorParametros++, pJogo.getId());
         }
+                 
+        ResultSet rs = stmt.executeQuery();
+        
+        while(rs.next()) {
+            jogos.add(montarObjeto(rs));
+        }
+        
+        //fecha a conexao
+        conexao.close();
+        
+        return jogos;
+    }
+    
+    public static List<Jogo> consultarPorPedidoLocacao(PedidoLocacao pedidaoLocacao) throws SQLException, ClassNotFoundException{
+        List<Jogo> jogos = new ArrayList<>();
+        Connection conexao = FabricaConexao.getConnection();
+        PreparedStatement stmt = null;
+        
+        String comando = "SELECT Jogo.id, titulo, qtd, qtd_disponivel, qtd_max_jogadores, tamanho_GB, genero"
+                        + ", classificao, id_produtora, valor_jogo, valor_locacao, data_lancamento"
+                        + " FROM Jogo INNER JOIN Pedido_Locacao_Jogo ON Jogo.id = Pedido_Locacao_Jogo.id_jogo"
+                        + " WHERE id_pedido_locacao = ?";
+        
+        
+        stmt = conexao.prepareStatement(comando);
+
+        stmt.setLong(1, pedidaoLocacao.getId());
                  
         ResultSet rs = stmt.executeQuery();
         

@@ -34,7 +34,7 @@ public class SalvarVendedorServlet extends HttpServlet {
             if(!req.getParameter("id").isEmpty()) {
                 vendedor.setId(Long.parseLong(req.getParameter("id")));
                 
-                vendedor.setIsAtivo(enumStatus.valueOf(req.getParameter("status")) == enumStatus.Ativo);
+                vendedor.setAtivo(enumStatus.valueOf(req.getParameter("status")) == enumStatus.Ativo);
                 
                 String dataString = req.getParameter("dataAdmissao");
                 DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
@@ -42,14 +42,14 @@ public class SalvarVendedorServlet extends HttpServlet {
         
                 vendedor.setDataAdmissao(dataAdmissao);
                 
-                if(vendedor.getIsAtivo()) {
+                if(vendedor.isAtivo()) {
                     vendedor.setDataDemissao(null);
                 } else {
                     vendedor.setDataDemissao(new Date(System.currentTimeMillis()));
                 }
                 
             } else { //CADASTRO
-                vendedor.setIsAtivo(true);
+                vendedor.setAtivo(true);
                 vendedor.setDataAdmissao(new Date(System.currentTimeMillis()));
             }
         

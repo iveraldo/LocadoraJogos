@@ -102,12 +102,7 @@
                 <div class="form-group">
                     <label for="senha">Senha</label>       
                     <input type="password" name="senha" class="form-control" />
-                </div>
-
-                 <div class="form-group">
-                    <label for="confirmacaoSenha">Confirmar Senha</label>                                    
-                    <input type="password" name="confirmacaoSenha" class="form-control" />
-                </div>                                
+                </div>                             
 
                  <br>
                  <button type="submit" value="submit" class="btn btn-success">Confirmar</button>

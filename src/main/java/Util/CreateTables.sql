@@ -18,7 +18,7 @@ create table Vendedor(
     ,foreign key (id_usuario) references Usuario(id)
 );
 
-insert into usuario values(1, 'Nuno Leao', 'nuno', '123');
+insert into usuario values(1, 'Nuno Leao', 'nuno', '202cb962ac59075b964b07152d234b70');
 insert into vendedor values(1, '998.987.987-77', '2000', 1);
 
 create table Idioma(
@@ -88,7 +88,7 @@ create table Endereco(
 );
 
 create table Jogo(
-	id integer primary key auto_increment
+    id integer primary key auto_increment
     ,titulo varchar(100) not null
     ,qtd integer not null
     ,qtd_disponivel integer not null
@@ -104,7 +104,7 @@ create table Jogo(
 );
 
 create table Jogo_Audio(
-	id integer primary key auto_increment
+    id integer primary key auto_increment
     ,id_jogo int not null
     ,id_idioma int not null
     ,foreign key (id_jogo) references Jogo(id)
@@ -112,9 +112,32 @@ create table Jogo_Audio(
 );
 
 create table Jogo_Legenda(
-	id integer primary key auto_increment
+    id integer primary key auto_increment
     ,id_jogo int not null
     ,id_idioma int not null
     ,foreign key (id_jogo) references Jogo(id)
     ,foreign key (id_idioma) references Idioma(id)
+);
+
+create table Pedido_Locacao(
+    id integer primary key auto_increment
+    ,data_pedido date not null
+    ,valor_locacao decimal(13,2) not null
+    ,forma_pagamento varchar(30) not null
+    ,id_cliente integer not null
+    ,id_vendedor integer not null
+    ,data_devolucao date not null
+    ,obs varchar(250)
+    ,cupom varchar(100)
+    ,devolvido tinyint not null
+    ,foreign key (id_cliente) references Cliente(id)
+    ,foreign key (id_vendedor) references Vendedor(id)
+);
+
+create table Pedido_Locacao_Jogo(
+    id integer primary key auto_increment
+    ,id_pedido_locacao int not null
+    ,id_jogo int not null
+    ,foreign key (id_pedido_locacao) references Pedido_Locacao(id)
+    ,foreign key (id_jogo) references Jogo(id)
 );

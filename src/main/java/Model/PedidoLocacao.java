@@ -15,6 +15,13 @@ public class PedidoLocacao {
     private Date dataDevolucao;
     private String obs;
     private String cupom;
+    private boolean devolvido;
+    
+    public PedidoLocacao(){}
+    
+    public PedidoLocacao(Long id){
+        this.setId(id);
+    }
 
     public Long getId() {
         return id;
@@ -94,6 +101,14 @@ public class PedidoLocacao {
 
     public void setCupom(String cupom) {
         this.cupom = cupom;
+    }
+
+    public boolean isDevolvido() {
+        return devolvido;
+    }
+
+    public void setDevolvido(boolean isDevolvido) {
+        this.devolvido = isDevolvido;
     }
     
 }

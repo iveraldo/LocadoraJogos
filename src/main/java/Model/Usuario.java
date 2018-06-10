@@ -5,7 +5,7 @@ public abstract class Usuario {
     private String nome;
     private String login;
     private String senha;
-    private boolean isAtivo;
+    private boolean ativo;
 
     public Long getId() {
         return id;
@@ -39,12 +39,12 @@ public abstract class Usuario {
         this.senha = senha;
     }
 
-    public boolean getIsAtivo() {
-        return isAtivo;
+    public boolean isAtivo() {
+        return ativo;
     }
 
-    public void setIsAtivo(boolean isAtivo) {
-        this.isAtivo = isAtivo;
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
        
 }
