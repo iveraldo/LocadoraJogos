@@ -50,7 +50,7 @@
 
                 <div class="form-group">
                     <label for="dataFundacao">Data de fundacao</label>
-                    <input type="text" name="dataFundacao" value="${produtora.dataFundacao}"  class="form-control" required="required" placeholder="Digite a data de fundacao"/>
+                    <input type="date" name="dataFundacao" value="${produtora.dataFundacao}"  class="form-control" required="required" placeholder="Digite a data de fundacao"/>
                 </div>
 
                 <div class="form-group">

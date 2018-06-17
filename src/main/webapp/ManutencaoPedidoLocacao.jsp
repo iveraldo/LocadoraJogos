@@ -95,28 +95,14 @@
                     </table>
                 </div>
                 <button type="button" class="btn btn-success">Adicionar jogo(s)</button>
+                
+                <br><br><br>
+                
+                <label for="jogosSelecionados">Jogos selecionados</label>
+                <select name="jogosSelecionados" id="jogosSelecionados" multiple class="form-control"></select>
+                
                 <br>
-                <br>
-                <br>
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Selecione</th>
-                                <th class="d-none">Id</th>
-                                <th>Jogo</th>
-                                <th>Valor da locacao</th>
-                                <th>Quantidade disponivel</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <button type="button" class="btn btn-danger">Remover jogo(s)</button>
-                <br>
-                <br>
-                <br>
+                
                 <c:set var="formasPagamento" value="<%=EnumFormaPagamento.values()%>"/>
                 <div class="form-group">
                     <label for="formaPagamento">Forma de pagamento</label>
@@ -132,7 +118,7 @@
                             </c:choose>
                         </c:forEach>
                     </select>
-                </div>  
+                </div> 
                 
                 <div class="form-group">
                     <label for="valorPedido">Valor do pedido</label>

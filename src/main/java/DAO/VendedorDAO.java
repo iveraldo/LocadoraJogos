@@ -27,7 +27,7 @@ public class VendedorDAO {
             stmt.setString(contadorParametros++, pVendedor.getNome());
             stmt.setString(contadorParametros++, pVendedor.getLogin());
             stmt.setString(contadorParametros++, Utilitario.gerarHash(pVendedor.getSenha()));
-            stmt.setBoolean(contadorParametros++, pVendedor.isAtivo());
+            stmt.setBoolean(contadorParametros++, pVendedor.getIsAtivo());
             
             //insere na tabela usuario
             stmt.executeUpdate();
@@ -77,7 +77,7 @@ public class VendedorDAO {
             stmt = conexao.prepareStatement(comando);
             stmt.setString(contadorParametros++, pVendedor.getNome());
             stmt.setString(contadorParametros++, pVendedor.getLogin());
-            stmt.setBoolean(contadorParametros++, pVendedor.isAtivo());
+            stmt.setBoolean(contadorParametros++, pVendedor.getIsAtivo());
             stmt.setString(contadorParametros++, pVendedor.getCpf());
             stmt.setDouble(contadorParametros++, pVendedor.getSalario());
             stmt.setInt(contadorParametros++, pVendedor.getPercentualComissao());

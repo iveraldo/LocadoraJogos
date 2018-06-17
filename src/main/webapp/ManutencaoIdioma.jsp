@@ -85,7 +85,7 @@
                 
                 <div class="form-group">
                     <label for="dataOrigem">Data de origem</label>
-                    <input type="text" name="dataOrigem" value="${idioma.dataOrigem}" class="form-control" required="required" placeholder="Digite a data de origem" />
+                    <input type="date" name="dataOrigem" value="${idioma.dataOrigem}" class="form-control" required="required" placeholder="Digite a data de origem" />
                 </div>
 
                  <br>

@@ -2,6 +2,7 @@ package Model;
 
 import Util.Utilitario.EnumFormaPagamento;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PedidoLocacao {
@@ -17,9 +18,12 @@ public class PedidoLocacao {
     private String cupom;
     private boolean devolvido;
     
-    public PedidoLocacao(){}
+    public PedidoLocacao(){
+        this.jogos = new ArrayList<>();
+    }
     
     public PedidoLocacao(Long id){
+        this();
         this.setId(id);
     }
 

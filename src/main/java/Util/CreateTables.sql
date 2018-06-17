@@ -18,8 +18,8 @@ create table Vendedor(
     ,foreign key (id_usuario) references Usuario(id)
 );
 
-insert into usuario values(1, 'Nuno Leao', 'nuno', '202cb962ac59075b964b07152d234b70');
-insert into vendedor values(1, '998.987.987-77', '2000', 1);
+insert into usuario values(1, 'Nuno Leao', 'nuno', '202cb962ac59075b964b07152d234b70', 1);
+insert into vendedor values(1, '998.987.987-77', '2000', 10, '2018-01-01', null, 1);
 
 create table Idioma(
     id integer primary key auto_increment

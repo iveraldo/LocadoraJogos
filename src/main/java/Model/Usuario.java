@@ -39,7 +39,7 @@ public abstract class Usuario {
         this.senha = senha;
     }
 
-    public boolean isAtivo() {
+    public boolean getIsAtivo() {
         return ativo;
     }
 

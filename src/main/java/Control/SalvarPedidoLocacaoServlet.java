@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/salvarPedidoLocacao")
-public class SalvarPedidoLocacao extends HttpServlet{
+public class SalvarPedidoLocacaoServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
         try {
@@ -25,17 +25,19 @@ public class SalvarPedidoLocacao extends HttpServlet{
             pedidoLocacao.setFormaPagamento(Utilitario.EnumFormaPagamento.valueOf(req.getParameter("formaPagamento")));
             pedidoLocacao.setCliente(new Cliente(Long.parseLong(req.getParameter("cliente"))));
             pedidoLocacao.setVendedor(new Vendedor(Long.parseLong(req.getParameter("idVendedor"))));
-            pedidoLocacao.setObs(req.getParameter("email"));
+            pedidoLocacao.setObs(req.getParameter("obs"));
             pedidoLocacao.setCupom(req.getParameter("cupom"));
             pedidoLocacao.setDevolvido(false);
             
-            Date hoje = new java.sql.Date( new java.util.Date().getTime());
+            Date hoje = new java.sql.Date(new java.util.Date().getTime());
                         
             pedidoLocacao.setDataPedido(hoje);
 
             Date deHojeA8 = new java.sql.Date(hoje.getTime() + ( (7) * 24*60*60*1000) );
             
             pedidoLocacao.setDataDevolucao(deHojeA8);
+            
+            Object obj = req.getParameterValues("jogosSelecionados");
 
             //ALTERACAO
             if(!req.getParameter("id").isEmpty()) {

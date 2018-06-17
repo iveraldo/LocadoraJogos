@@ -42,7 +42,7 @@ public class SalvarVendedorServlet extends HttpServlet {
         
                 vendedor.setDataAdmissao(dataAdmissao);
                 
-                if(vendedor.isAtivo()) {
+                if(vendedor.getIsAtivo()) {
                     vendedor.setDataDemissao(null);
                 } else {
                     vendedor.setDataDemissao(new Date(System.currentTimeMillis()));

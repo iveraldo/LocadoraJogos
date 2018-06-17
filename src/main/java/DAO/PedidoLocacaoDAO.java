@@ -103,7 +103,7 @@ public class PedidoLocacaoDAO {
         Connection conexao = FabricaConexao.getConnection();
         PreparedStatement stmt = null;
         
-        String comando = "SELECT data_pedido, valor_locacao, forma_pagamento, id_cliente, id_vendedor, data_devolucao"
+        String comando = "SELECT id, data_pedido, valor_locacao, forma_pagamento, id_cliente, id_vendedor, data_devolucao"
                         + ", obs, cupom, devolvido"
                         + " FROM Pedido_Locacao WHERE 1 = 1 ";
         

@@ -1,3 +1,4 @@
+<%@page import="Util.Utilitario.EnumSexo"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="DAO.ClienteDAO"%>
 <%@page import="Model.Cliente"%>
@@ -74,10 +75,22 @@
                     <input type="text" name="email" value="${cliente.email}" required="required" class="form-control" placeholder="Digite o email" />
                 </div>  
                 
+                <c:set var="sexos" value="<%=EnumSexo.values()%>"/>
                 <div class="form-group">
                     <label for="sexo">Sexo</label>
-                    <input type="text" name="sexo" value="${cliente.sexo}" class="form-control" required="required" placeholder="Digite o sexo" />
-                </div>
+                    <select name="sexo" class="form-control">
+                        <c:forEach var="sexo" items="${sexos}">
+                            <c:choose>
+                                <c:when test="${cliente.sexo.equals(sexo)}">
+                                    <option value="${sexo}" selected>${sexo}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${sexo}">${sexo}</option>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </select>
+                </div> 
                 
                 <div class="form-group">
                     <label for="logradouro">Logradouro</label>
