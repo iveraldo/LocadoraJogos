@@ -35,6 +35,18 @@ public class PedidoLocacao {
         this.id = id;
     }
 
+    public void adicionarJogo(Jogo jogo) {
+        this.jogos.add(jogo);
+    }
+    
+    public void removerAudio(Jogo jogo){
+        this.jogos.remove(jogo);
+    }
+    
+    public void limparJogos(){
+        this.jogos.removeAll(jogos);
+    }
+
     public List<Jogo> getJogos() {
         return jogos;
     }

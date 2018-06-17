@@ -38,6 +38,7 @@
                         <tr>
                             <th>Titulo</th>
                             <th>Genero</th>
+                            <th>Qtd Disponivel</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -46,6 +47,7 @@
                             <tr>
                                 <td>${jogo.titulo}</td>
                                 <td>${jogo.genero}</td>
+                                <td>${jogo.qtdDisponivel}</td>
                                 <td>
                                     <a class="label label-success" href="ManutencaoJogo.jsp?v=${jogo.id}"> Alterar</a>
                                     <a class="label label-danger" href="excluirJogo?i=${jogo.id}">Excluir</a>

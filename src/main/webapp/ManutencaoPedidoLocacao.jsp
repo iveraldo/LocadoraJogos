@@ -126,7 +126,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="obs">Observavao</label>
+                    <label for="obs">Observacao</label>
                     <textarea name="obs" value="${pedidoLocacao.obs}" class="form-control" ></textarea>
                 </div>
                 

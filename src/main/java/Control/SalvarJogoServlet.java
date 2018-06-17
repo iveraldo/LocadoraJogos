@@ -28,7 +28,6 @@ public class SalvarJogoServlet extends HttpServlet {
             Jogo jogo = new Jogo();
             jogo.setTitulo(req.getParameter("titulo"));
             jogo.setQtd(Integer.parseInt(req.getParameter("qtd")));
-            jogo.setQtdDisponivel(Integer.parseInt(req.getParameter("qtdDisponivel")));
             jogo.setQtdMaxJogadores(Integer.parseInt(req.getParameter("qtdMaxJogadores")));
             jogo.setTamanhoGB(Double.parseDouble(req.getParameter("tamanhoGB")));
             jogo.setGenero(EnumGeneroJogo.valueOf(req.getParameter("genero")));
@@ -61,6 +60,9 @@ public class SalvarJogoServlet extends HttpServlet {
             //ALTERACAO
             if(!req.getParameter("id").isEmpty()) {
                 jogo.setId(Long.parseLong(req.getParameter("id")));
+                jogo.setQtdDisponivel(Integer.parseInt(req.getParameter("qtdDisponivel")));
+            } else {
+                jogo.setQtdDisponivel(jogo.getQtd());
             }
         
             JogoDAO.salvar(jogo);

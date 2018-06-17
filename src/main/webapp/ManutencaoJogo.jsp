@@ -45,6 +45,7 @@
             </c:choose>
 
             <input type="hidden" name="id" value="${jogo.id}" />
+            <input type="hidden" name="qtdDisponivel" value="${jogo.qtdDisponivel}" />
 
             <div class="panel-body" style="width: 50%;">
 
@@ -55,17 +56,12 @@
 
                 <div class="form-group">
                     <label for="qtd">Quantidade</label>
-                    <input type="text" name="qtd" value="${jogo.qtd}"  class="form-control" required="required" placeholder="Digite a quantidade"/>
-                </div>
-
-                <div class="form-group">
-                    <label for="qtdDisponivel">Quantidade disponivel</label>
-                    <input type="number" name="qtdDisponivel" value="${jogo.qtdDisponivel}" class="form-control" required="required" placeholder="Digite a quantidade disponivel" />
+                    <input type="number" name="qtd" value="${jogo.qtd}"  class="form-control" required="required" placeholder="Digite a quantidade"/>
                 </div>
                 
                 <div class="form-group">
                     <label for="qtdMaxJogadores">Quantidade maxima de jogadores</label>
-                    <input type="text" name="qtdMaxJogadores" value="${jogo.qtdMaxJogadores}" class="form-control" required="required" placeholder="Digite a quantidade maxima de jogadores" />
+                    <input type="number" name="qtdMaxJogadores" value="${jogo.qtdMaxJogadores}" class="form-control" required="required" placeholder="Digite a quantidade maxima de jogadores" />
                 </div>
 
                  <div class="form-group">

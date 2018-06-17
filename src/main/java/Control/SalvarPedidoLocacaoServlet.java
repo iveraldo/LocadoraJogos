@@ -2,6 +2,7 @@ package Control;
 
 import DAO.PedidoLocacaoDAO;
 import Model.Cliente;
+import Model.Jogo;
 import Model.PedidoLocacao;
 import Model.Vendedor;
 import Util.Utilitario;
@@ -37,7 +38,13 @@ public class SalvarPedidoLocacaoServlet extends HttpServlet{
             
             pedidoLocacao.setDataDevolucao(deHojeA8);
             
-            Object obj = req.getParameterValues("jogosSelecionados");
+            String[] jogos = req.getParameterValues("jogosSelecionados");
+            if(jogos != null){
+               for(String idJogo : jogos){
+                    //Adiciona os jogos
+                    pedidoLocacao.adicionarJogo(new Jogo(Long.parseLong(idJogo)));
+                } 
+            }
 
             //ALTERACAO
             if(!req.getParameter("id").isEmpty()) {

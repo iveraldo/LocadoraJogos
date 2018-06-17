@@ -1,3 +1,4 @@
+<%@page import="Util.Utilitario.EnumEstado"%>
 <%@page import="Util.Utilitario.EnumSexo"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="DAO.ClienteDAO"%>
@@ -104,7 +105,7 @@
                 
                 <div class="form-group">
                     <label for="complemento">Complemento</label>
-                    <input type="text" name="complemento" value="${cliente.endereco.complemento}" class="form-control" required="required" placeholder="Digite o complemento" />
+                    <input type="text" name="complemento" value="${cliente.endereco.complemento}" class="form-control" placeholder="Digite o complemento" />
                 </div>
                 
                 <div class="form-group">
@@ -117,10 +118,22 @@
                     <input type="text" name="cidade" value="${cliente.endereco.cidade}" class="form-control" required="required" placeholder="Digite o cidade" />
                 </div>
                 
+                <c:set var="estados" value="<%=EnumEstado.values()%>"/>
                 <div class="form-group">
                     <label for="estado">Estado</label>
-                    <input type="text" name="estado" value="${cliente.endereco.estado}" class="form-control" required="required" placeholder="Digite o estado  " />
-                </div>
+                    <select name="estado" class="form-control">
+                        <c:forEach var="estado" items="${estados}">
+                            <c:choose>
+                                <c:when test="${cliente.endereco.estado.equals(estado)}">
+                                    <option value="${estado}" selected>${estado}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${estado}">${estado}</option>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </select>
+                </div> 
                 
                 <div class="form-group">
                     <label for="cep">CEP</label>
@@ -129,7 +142,7 @@
                 
                 <div class="form-group">
                     <label for="obs">Observacao</label>
-                    <input type="text" name="obs" value="${cliente.endereco.obs}" class="form-control" required="required" placeholder="Digite o observacao" />
+                    <input type="text" name="obs" value="${cliente.endereco.obs}" class="form-control" placeholder="Digite o observacao" />
                 </div>
 
                 <br>

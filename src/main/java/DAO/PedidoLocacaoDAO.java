@@ -91,6 +91,10 @@ public class PedidoLocacaoDAO {
 
             //insere o audio na tabela Pedido_Locacao_Jogo
             stmt.executeUpdate();
+            
+            jogo = JogoDAO.consultar(jogo).get(0);
+            jogo.setQtdDisponivel(jogo.getQtdDisponivel() - 1);
+            JogoDAO.atualizarQtd(jogo);
         }
 
         conexao.close();
@@ -99,13 +103,13 @@ public class PedidoLocacaoDAO {
 
     public static List<PedidoLocacao> consultar(PedidoLocacao pPedidoLocacao) throws SQLException, ClassNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException{
         int contadorParametros = 1;
-        List<PedidoLocacao> pedidoLocacaos = new ArrayList<>();
+        List<PedidoLocacao> pedidosLocacao = new ArrayList<>();
         Connection conexao = FabricaConexao.getConnection();
         PreparedStatement stmt = null;
         
         String comando = "SELECT id, data_pedido, valor_locacao, forma_pagamento, id_cliente, id_vendedor, data_devolucao"
                         + ", obs, cupom, devolvido"
-                        + " FROM Pedido_Locacao WHERE 1 = 1 ";
+                        + " FROM Pedido_Locacao WHERE devolvido = 0 ";
         
         if(pPedidoLocacao.getId() != null){
             comando += "AND Pedido_Locacao.id = ? ";
@@ -120,13 +124,17 @@ public class PedidoLocacaoDAO {
         ResultSet rs = stmt.executeQuery();
         
         while(rs.next()) {
-            pedidoLocacaos.add(montarObjeto(rs));
+            pedidosLocacao.add(montarObjeto(rs));
+        }
+        
+        for(PedidoLocacao pedidoLocacao : pedidosLocacao){
+            pedidoLocacao.setJogos(JogoDAO.consultarPorPedidoLocacao(pedidoLocacao));
         }
         
         //fecha a conexao
         conexao.close();
         
-        return pedidoLocacaos;
+        return pedidosLocacao;
     }
 
     public static void excluir(PedidoLocacao pPedidoLocacao) throws SQLException, ClassNotFoundException {
@@ -145,6 +153,24 @@ public class PedidoLocacaoDAO {
         stmt = conexao.prepareStatement(comando);
         stmt.setLong(1, pPedidoLocacao.getId());
         stmt.executeUpdate();
+    }
+    
+    public static void devolver(PedidoLocacao pPedidoLocacao) throws SQLException, ClassNotFoundException {
+        String comando;
+        Connection conexao = FabricaConexao.getConnection();
+        PreparedStatement stmt = null;
+        
+        //Atualiza a tabela pedido_locacao com a devolucao do jogo
+        comando = "UPDATE Pedido_Locacao SET devolvido = 1 WHERE id = ?";
+        stmt = conexao.prepareStatement(comando);
+        stmt.setLong(1, pPedidoLocacao.getId());
+        stmt.executeUpdate();
+        
+        //Atualiza a quantidade disponivel dos jogos do pedido
+        for (Jogo jogo : pPedidoLocacao.getJogos()) {
+            jogo.setQtdDisponivel(jogo.getQtdDisponivel() + 1);
+            JogoDAO.atualizarQtd(jogo);
+        }
     }
     
     private static PedidoLocacao montarObjeto(ResultSet rs) throws SQLException, ClassNotFoundException, NoSuchAlgorithmException, UnsupportedEncodingException{

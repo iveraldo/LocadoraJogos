@@ -27,7 +27,7 @@
         <script> $(function(){ $("#nav-placeholder").load("menu.html"); }); </script>
         <!--Fim do menu-->
         
-        <h4 class="page-head-line">Gerenciamento de PedidoLocacaos</h4>
+        <h4 class="page-head-line">Gerenciamento de Pedidos de Locacao</h4>
             <h4>
                 <a href="ManutencaoPedidoLocacao.jsp"><button type="button" class="btn btn-info">Incluir</button></a>
             </h4>
@@ -47,6 +47,7 @@
                                 <td>${pedidoLocacao.cliente.nome}</td>
                                 <td>${pedidoLocacao.dataDevolucao}</td>
                                 <td>
+                                    <a class="label label-warning" href="devolverPedidoLocacao?i=${pedidoLocacao.id}"> Devolver</a>
                                     <a class="label label-success" href="ManutencaoPedidoLocacao.jsp?v=${pedidoLocacao.id}"> Alterar</a>
                                     <a class="label label-danger" href="excluirPedidoLocacao?i=${pedidoLocacao.id}">Excluir</a>
                                 </td>

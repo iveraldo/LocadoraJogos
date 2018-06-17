@@ -205,6 +205,19 @@ public class JogoDAO {
         stmt.executeUpdate();
     }
     
+    public static void atualizarQtd(Jogo pJogo) throws SQLException, ClassNotFoundException {
+        String comando;
+        Connection conexao = FabricaConexao.getConnection();
+        PreparedStatement stmt = null;
+        
+        //Atualiza a quantidade de jogos
+        comando = "UPDATE Jogo SET qtd_disponivel = ? WHERE id = ?";
+        stmt = conexao.prepareStatement(comando);
+        stmt.setInt(1, pJogo.getQtdDisponivel());
+        stmt.setLong(2, pJogo.getId());
+        stmt.executeUpdate();
+    }
+    
     private static Jogo montarObjeto(ResultSet rs) throws SQLException, ClassNotFoundException{
             Jogo jogo = new Jogo();
                 
