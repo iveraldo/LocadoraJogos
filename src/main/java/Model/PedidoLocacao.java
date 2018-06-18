@@ -50,6 +50,16 @@ public class PedidoLocacao {
     public List<Jogo> getJogos() {
         return jogos;
     }
+    
+    public List<Long> getIdJogos(){
+        List<Long> idsJogos = new ArrayList<>();
+        
+        for(Jogo jogo: jogos){
+            idsJogos.add(jogo.getId());
+        }
+        
+        return idsJogos;
+    }
 
     public void setJogos(List<Jogo> jogos) {
         this.jogos = jogos;

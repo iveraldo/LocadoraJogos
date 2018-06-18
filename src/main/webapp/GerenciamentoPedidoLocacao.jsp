@@ -47,8 +47,8 @@
                                 <td>${pedidoLocacao.cliente.nome}</td>
                                 <td>${pedidoLocacao.dataDevolucao}</td>
                                 <td>
-                                    <a class="label label-warning" href="devolverPedidoLocacao?i=${pedidoLocacao.id}"> Devolver</a>
                                     <a class="label label-success" href="ManutencaoPedidoLocacao.jsp?v=${pedidoLocacao.id}"> Alterar</a>
+                                    <a class="label label-warning" href="devolverPedidoLocacao?i=${pedidoLocacao.id}"> Devolver</a>
                                     <a class="label label-danger" href="excluirPedidoLocacao?i=${pedidoLocacao.id}">Excluir</a>
                                 </td>
                             </tr>    

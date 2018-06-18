@@ -31,6 +31,22 @@ public class PedidoLocacaoDAO {
             stmt = conexao.prepareStatement(comando, Statement.RETURN_GENERATED_KEYS);
             
         } else {
+            for (Jogo jogo : JogoDAO.consultarPorPedidoLocacao(pPedidoLocacao)) {
+                //Atualiza a qtd de jogos disponiveis
+                jogo = JogoDAO.consultar(jogo).get(0);
+                jogo.setQtdDisponivel(jogo.getQtdDisponivel() + 1);
+                JogoDAO.atualizarQtdDisponivel(jogo);
+            }
+            
+            //Exclui os audios vinculados ao pedidoLocacao
+            contadorParametros = 1;
+            comando = "DELETE FROM Pedido_Locacao_Jogo WHERE id_pedido_locacao = ?";
+            stmt = conexao.prepareStatement(comando);
+            stmt.setLong(contadorParametros++, pPedidoLocacao.getId());
+            stmt.executeUpdate();
+            
+            
+            contadorParametros = 1;
             comando = "UPDATE Pedido_Locacao SET"
                     + " data_pedido = ?"
                     + ", valor_locacao = ?"
@@ -70,13 +86,6 @@ public class PedidoLocacaoDAO {
 
             pPedidoLocacao.setId(rs.getLong(1));
             
-        } else {
-            //Exclui os audios vinculados ao pedidoLocacao
-            contadorParametros = 1;
-            comando = "DELETE FROM Pedido_Locacao_Audio WHERE id_pedidoLocacao = ?";
-            stmt = conexao.prepareStatement(comando);
-            stmt.setLong(contadorParametros++, pPedidoLocacao.getId());
-            stmt.executeUpdate();
         }
 
         for (Jogo jogo : pPedidoLocacao.getJogos()) {
@@ -94,7 +103,7 @@ public class PedidoLocacaoDAO {
             
             jogo = JogoDAO.consultar(jogo).get(0);
             jogo.setQtdDisponivel(jogo.getQtdDisponivel() - 1);
-            JogoDAO.atualizarQtd(jogo);
+            JogoDAO.atualizarQtdDisponivel(jogo);
         }
 
         conexao.close();
@@ -169,7 +178,7 @@ public class PedidoLocacaoDAO {
         //Atualiza a quantidade disponivel dos jogos do pedido
         for (Jogo jogo : pPedidoLocacao.getJogos()) {
             jogo.setQtdDisponivel(jogo.getQtdDisponivel() + 1);
-            JogoDAO.atualizarQtd(jogo);
+            JogoDAO.atualizarQtdDisponivel(jogo);
         }
     }
     

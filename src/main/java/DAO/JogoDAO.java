@@ -136,6 +136,10 @@ public class JogoDAO {
             comando += "AND Jogo.id = ? ";
         }
         
+        if(pJogo.isApenasComEstoque()){
+            comando += "AND Jogo.qtd_disponivel > 0 ";
+        }
+        
         stmt = conexao.prepareStatement(comando);
         
         if(pJogo.getId() != null){
@@ -205,7 +209,7 @@ public class JogoDAO {
         stmt.executeUpdate();
     }
     
-    public static void atualizarQtd(Jogo pJogo) throws SQLException, ClassNotFoundException {
+    public static void atualizarQtdDisponivel(Jogo pJogo) throws SQLException, ClassNotFoundException {
         String comando;
         Connection conexao = FabricaConexao.getConnection();
         PreparedStatement stmt = null;

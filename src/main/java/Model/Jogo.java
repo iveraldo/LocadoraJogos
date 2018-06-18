@@ -21,15 +21,22 @@ public class Jogo {
     private double valorJogo;
     private double valorLocacao;
     private Date dataLancamento;
+    private boolean apenasComEstoque;
     
     public Jogo(){
         audios = new ArrayList<>();
         legendas = new ArrayList<>();
+        apenasComEstoque = false;
     }
     
     public Jogo(Long id){
         this();
         this.id = id;
+    }
+    
+    public Jogo(boolean apenasComEstoque){
+        this();
+        this.apenasComEstoque = apenasComEstoque;
     }
 
     public Long getId() {
@@ -186,6 +193,14 @@ public class Jogo {
 
     public void setDataLancamento(Date dataLancamento) {
         this.dataLancamento = dataLancamento;
+    }
+
+    public boolean isApenasComEstoque() {
+        return apenasComEstoque;
+    }
+
+    public void setApenasComEstoque(boolean apenasComEstoque) {
+        this.apenasComEstoque = apenasComEstoque;
     }
     
 }

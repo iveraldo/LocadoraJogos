@@ -24,7 +24,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Manutencao de PedidoLocacaos</title>
+        <title>Manutencao de Pedidos de Locacao</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="webjars/bootstrap/3.3.7/css/bootstrap.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -64,32 +64,42 @@
                     <label for="cliente">Cliente</label>
                     <select name="cliente" class="form-control">
                         <c:forEach var="cliente" items="${clientes}">
-                            <option value="${cliente.id}">${cliente.nome}</option>
+                            <c:choose>
+                                <c:when test="${pedidoLocacao.cliente.id.equals(cliente.id)}">
+                                    <option value="${cliente.id}" selected>${cliente.nome}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${cliente.id}">${cliente.nome}</option>
+                                </c:otherwise>
+                            </c:choose>
                         </c:forEach>
                     </select>
                 </div>  
                 
                 <div class="table-responsive">
+                    <label for="">Jogos disponiveis</label>
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th>Selecione</th>
-                                <th class="d-none">Id</th>
+                                <th style="display: none;">Id</th>
                                 <th>Jogo</th>
                                 <th>Valor da locacao</th>
                                 <th>Quantidade disponivel</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:set var="jogos" value="<%=JogoDAO.consultar(new Jogo()) %>"/>
+                            <c:set var="jogos" value="<%=JogoDAO.consultar(new Jogo(true)) %>"/>
                             <c:forEach var="jogo" items="${jogos}">
-                                <tr>
-                                    <td><input type="checkbox" name="selecione" /></td>
-                                    <td class="d-none">${jogo.id}</td>
-                                    <td>${jogo.titulo}</td>
-                                    <td>${jogo.valorLocacao}</td>
-                                    <td>${jogo.qtdDisponivel}</td>
-                                </tr>    
+                                <c:if test="${!pedidoLocacao.idJogos.contains(jogo.id)}">
+                                    <tr>
+                                        <td><input type="checkbox" name="selecione" /></td>
+                                        <td class="d-none" style="display: none;">${jogo.id}</td>
+                                        <td>${jogo.titulo}</td>
+                                        <td>${jogo.valorLocacao}</td>
+                                        <td>${jogo.qtdDisponivel}</td>
+                                    </tr>   
+                                </c:if>
                             </c:forEach>
                         </tbody>
                     </table>
@@ -99,7 +109,11 @@
                 <br><br><br>
                 
                 <label for="jogosSelecionados">Jogos selecionados</label>
-                <select name="jogosSelecionados" id="jogosSelecionados" multiple class="form-control"></select>
+                <select name="jogosSelecionados" id="jogosSelecionados" multiple class="form-control">
+                    <c:forEach var="jogo" items="${pedidoLocacao.jogos}">
+                        <option value="${jogo.id}">${jogo.titulo}</option>
+                    </c:forEach>
+                </select>
                 
                 <br>
                 
@@ -122,7 +136,15 @@
                 
                 <div class="form-group">
                     <label for="valorPedido">Valor do pedido</label>
-                    <input type="text" id="valorPedido" name="valorPedido" value="0" class="form-control" required="required" readonly />
+                    <c:choose>
+                        <c:when test="${pedidoLocacao == null}">
+                            <input type="text" id="valorPedido" name="valorPedido" value="0" class="form-control" required="required" readonly />
+                        </c:when>
+                        <c:otherwise>
+                            <input type="text" id="valorPedido" name="valorPedido" value="${pedidoLocacao.valorLocacao}" class="form-control" required="required" readonly />
+                        </c:otherwise>
+                    </c:choose>
+                    
                 </div>
                 
                 <div class="form-group">

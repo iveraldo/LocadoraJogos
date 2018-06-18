@@ -18,9 +18,6 @@ function AdicionarJogos(){
       //remove a linha
       tbody.removeChild(linhaDeslocada);
       
-      //desmarca o checkbox
-      checkbox.checked = false;
-      
       var comboNomeJogos = document.getElementById("jogosSelecionados");
       
       //insere o id e o nome do jogo no combobox de jogos selecionados

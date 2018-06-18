@@ -142,7 +142,7 @@
                 
                 <div class="form-group">
                     <label for="obs">Observacao</label>
-                    <input type="text" name="obs" value="${cliente.endereco.obs}" class="form-control" placeholder="Digite o observacao" />
+                    <textarea name="obs" value="${cliente.endereco.obs}" class="form-control" ></textarea>
                 </div>
 
                 <br>
