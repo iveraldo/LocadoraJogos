@@ -22,6 +22,7 @@ public class Jogo {
     private double valorLocacao;
     private Date dataLancamento;
     private boolean apenasComEstoque;
+    private List<PedidoLocacao> pedidosLocacao;
     
     public Jogo(){
         audios = new ArrayList<>();
@@ -201,6 +202,14 @@ public class Jogo {
 
     public void setApenasComEstoque(boolean apenasComEstoque) {
         this.apenasComEstoque = apenasComEstoque;
+    }
+
+    public List<PedidoLocacao> getPedidosLocacao() {
+        return pedidosLocacao;
+    }
+
+    public void setPedidosLocacao(List<PedidoLocacao> pedidosLocacao) {
+        this.pedidosLocacao = pedidosLocacao;
     }
     
 }

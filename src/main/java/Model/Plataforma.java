@@ -2,30 +2,20 @@ package Model;
 
 import java.sql.Date;
 
-public class Plataforma {
-    private Long id;
+public class Plataforma extends Marca{
     private String descricao;
     private Date dataCriacao;
     private String fabricante;
     private long unidadesVendidas;
     private int numeroGeracao;
     private String midia;
-    private String siteOficial;
     private double precoLancamento;
     private String sistemaOperacional;
     
     public Plataforma(){};
     
     public Plataforma(Long id){
-        this.setId(id);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        super.setId(id);
     }
 
     public String getDescricao() {
@@ -74,14 +64,6 @@ public class Plataforma {
 
     public void setMidia(String midia) {
         this.midia = midia;
-    }
-
-    public String getSiteOficial() {
-        return siteOficial;
-    }
-
-    public void setSiteOficial(String siteOficial) {
-        this.siteOficial = siteOficial;
     }
 
     public double getPrecoLancamento() {

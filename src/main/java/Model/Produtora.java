@@ -2,14 +2,12 @@ package Model;
 
 import java.sql.Date;
 
-public class Produtora {
-    private Long id;
+public class Produtora extends Marca{
     private String nome;
     private Date dataFundacao;
     private double valorRendaBruta;
     private double valorLucros;
     private String mascote;
-    private String siteOficial;
     private String cidadeSede;
     private String paisOrigem;
     private int qtdEstudios;
@@ -17,15 +15,7 @@ public class Produtora {
     public Produtora(){};
     
     public Produtora(Long id){
-        this.setId(id);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        super.setId(id);
     }
 
     public String getNome() {
@@ -66,14 +56,6 @@ public class Produtora {
 
     public void setMascote(String mascote) {
         this.mascote = mascote;
-    }
-
-    public String getSiteOficial() {
-        return siteOficial;
-    }
-
-    public void setSiteOficial(String siteOficial) {
-        this.siteOficial = siteOficial;
     }
 
     public String getCidadeSede() {
